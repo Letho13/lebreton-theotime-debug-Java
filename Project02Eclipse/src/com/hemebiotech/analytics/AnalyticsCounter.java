@@ -25,7 +25,7 @@ public class AnalyticsCounter {
 		return reader.getSymptoms();
 	}
 	// Setp 4.3 counting the symptoms from the file
-
+//s
 	public Map<String, Integer> countSymptoms(List<String> symptoms) {
 		symptoms.size();
 		return countSymptoms(symptoms);
