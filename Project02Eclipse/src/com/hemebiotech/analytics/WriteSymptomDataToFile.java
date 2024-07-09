@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Simple brute force implementation
- *
+ *s
  */
 
 public class WriteSymptomDataToFile implements ISymptomWriter {
