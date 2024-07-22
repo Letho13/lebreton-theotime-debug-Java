@@ -1,8 +1,12 @@
 package com.hemebiotech.analytics;
 
+import java.util.List;
 import java.util.Map;
 
 public class Main {
+
+    static String filePathReader = "C:\\DEV\\Repo\\lebreton-theotime-debug-Java\\Project02Eclipse\\symptoms.txt";
+    static String filePathWriter = "result.out";
 
     /*
      * This program run an analysis of a file with symptoms,
@@ -13,37 +17,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // filepath for the reading of the symptoms
-        ISymptomReader reader = new ReadSymptomDataFromFile(
-                "C:\\DEV\\Repo\\lebreton-theotime-debug-Java\\Project02Eclipse\\symptoms.txt");
+                
+        AnalyticsCounter analyticsCounter = new AnalyticsCounter(new ReadSymptomDataFromFile(filePathReader), new WriteSymptomDataToFile(filePathWriter));
 
-        // filepath for writing the results
-        ISymptomWriter writer = new WriteSymptomDataToFile("result.out");
-
-        // setting up order of the actions, read first and write second
-        AnalyticsCounter analyticsCounter = new AnalyticsCounter(reader, writer);
-
-        // count the occurences of the symptoms
-        Map<String, Integer> countSymptoms = analyticsCounter.countSymptoms();
-
-        // sort the symptoms with their occurences by alphabetical order
+        List<String> symptoms = analyticsCounter.getSymptoms();
+        
+        Map<String, Integer> countSymptoms = analyticsCounter.countSymptoms(symptoms);
+        
         Map<String, Integer> sortSymptoms = analyticsCounter.sortSymptoms(countSymptoms);
-
-        // printing symptoms and their occurences
-        System.out.println("Occurrences des symptômes :");
-        for (Map.Entry<String, Integer> entry : countSymptoms.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-
-        }
-
-        // printing symptoms and their occurences byt alphabetical order
-        System.out.println("Symptômes triés par ordre alphabétique :");
-        for (Map.Entry<String, Integer> entry : sortSymptoms.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-
-        }
-
-        // writing the results on the file defined
+              
         analyticsCounter.writeSymptoms(sortSymptoms);
 
     }
